@@ -1,4 +1,3 @@
-//hashing algorithm
 const sha256 = require("sha256");
 
 class Block {
@@ -53,7 +52,7 @@ class Blockchain {
     for (let i = 1; i < this.chain.length; i++) {
       let currentBlock = this.chain[i];
       let previousBlock = this.chain[i - 1];
-      //check whether the hash of the current block holds
+      //check whether the has of the current block holds
       if (currentBlock.hash !== currentBlock.calculateHash()) {
         return false;
       }
@@ -65,29 +64,3 @@ class Blockchain {
     return true;
   }
 }
-
-//Creating a new instance of the blockchain
-let myCoin = new Blockchain();
-//Adding some blocks to the chain
-myCoin.addNewBlock(
-  new Block(1, "18/07/2024", { message: "Second Block", amount: 10 })
-);
-myCoin.addNewBlock(
-  new Block(2, "19/07/2024", { message: "Third Block", amount: 20 })
-);
-
-// console.log(MYBTC.chain);
-
-//Checking whether the chain is valid
-console.log("1. Is the blockchain valid?", myCoin.isChainValid());
-
-//Let's tamper with the second block and try verifying the chain
-myCoin.chain[1].data = { message: "Tampered Second Block", amount: 100 };
-console.log("2. Is the blockchain valid?", myCoin.isChainValid());
-//Let's be even more creative with the tampering🤔
-myCoin.chain[1].data = { message: "Tampered Second Block", amount: 100 };
-//We recalculate the hash to try and cover our tracks😈
-myCoin.chain[1].hash = myCoin.chain[1].calculateHash();
-console.log("3. Is the blockchain valid?", myCoin.isChainValid());
-
-// console.log(JSON.stringify(myCoin, null, 4));
